@@ -26,10 +26,7 @@ typedef struct PARAM Param_t;
 
 /**
  * Print the contents of the structure when the shell is started with the debug option –Debug.
- * @param x the x coordinate
- * @param y the y coordinate
- *
- * @return the new Point constructed from the provided parameters
+ * @param param the parameters from the user input
  */
 void printParams(Param_t * param)
 {
@@ -43,8 +40,17 @@ void printParams(Param_t * param)
         printf("ArgumentVector[%2d]: [%s]\n", i, param->argumentVector[i]);
 }
 
+/**
+ * This function starts the program.
+ */
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    printf("Hello, World!\n");
+    //
+    char input[MAXARGS];
+    
+    // Prompt the user for input
+    fprintf(stdout, "$$$ ");
+    fgets(input, MAXARGS, stdin);
+    printf("%s\n",input);
+    
     return 0;
 }
