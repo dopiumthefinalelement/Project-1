@@ -48,12 +48,13 @@ void printParams(Param_t * param)
 int main(int argc, const char * argv[]) {
     //
     char input[MAXARGS];
+    char demin[4] = {"\n", " "};
     
     // Prompt the user for input
     fprintf(stdout, "$$$ ");
     fflush(stdout);
     fgets(input, MAXARGS, stdin);
-    while((strcmp(input, "exit\n") != 0) && (strcmp(input, "\n") != 0))
+    while(strcmp(input, "exit\n") != 0)
     {
     	 printf("%s\n",input);
     	 fprintf(stdout, "$$$ ");
