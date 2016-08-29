@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /**
  * This program prompts the user for two input values to compute the average of the two values.
@@ -49,8 +51,14 @@ int main(int argc, const char * argv[]) {
     
     // Prompt the user for input
     fprintf(stdout, "$$$ ");
+    fflush(stdout);
     fgets(input, MAXARGS, stdin);
-    printf("%s\n",input);
-    
+    while(strcmp(input, "exit\n") != 0)
+    {
+    	 printf("%s\n",input);
+    	 fprintf(stdout, "$$$ ");
+    	 fflush(stdout);
+    	 fgets(input, MAXARGS, stdin);
+    }
     return 0;
 }
