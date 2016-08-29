@@ -48,7 +48,8 @@ void printParams(Param_t * param)
 int main(int argc, const char * argv[]) {
     //
     char input[MAXARGS];
-    char demin[4] = {"\n", " "};
+    char demin[4] = {"\n"};
+    char *token;
     
     // Prompt the user for input
     fprintf(stdout, "$$$ ");
@@ -56,6 +57,7 @@ int main(int argc, const char * argv[]) {
     fgets(input, MAXARGS, stdin);
     while(strcmp(input, "exit\n") != 0)
     {
+    	 token = strtok(input, demin);
     	 printf("%s\n",input);
     	 fprintf(stdout, "$$$ ");
     	 fflush(stdout);
