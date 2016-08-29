@@ -41,7 +41,7 @@ void printParams(Param_t * param)
 }
 
 /**
- * This function starts the program. FUCK YOU GET HUUUUUB
+ * This function starts the program.
  */
 int main(int argc, const char * argv[]) {
     //
