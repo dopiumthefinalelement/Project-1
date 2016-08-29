@@ -53,7 +53,7 @@ int main(int argc, const char * argv[]) {
     fprintf(stdout, "$$$ ");
     fflush(stdout);
     fgets(input, MAXARGS, stdin);
-    while(strcmp(input, "exit\n") != 0)
+    while((strcmp(input, "exit\n") != 0) && (strcmp(input, "\n") != 0))
     {
     	 printf("%s\n",input);
     	 fprintf(stdout, "$$$ ");
