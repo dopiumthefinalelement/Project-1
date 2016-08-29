@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		459CD4711D7493B600B5E13E /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 459CD4701D7493B600B5E13E /* main.c */; };
+		459CD47F1D74943700B5E13E /* myshell.c in Sources */ = {isa = PBXBuildFile; fileRef = 459CD47C1D74943700B5E13E /* myshell.c */; };
+		459CD4801D74943700B5E13E /* parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 459CD47D1D74943700B5E13E /* parse.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +25,9 @@
 
 /* Begin PBXFileReference section */
 		459CD46D1D7493B600B5E13E /* Project 1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Project 1"; sourceTree = BUILT_PRODUCTS_DIR; };
-		459CD4701D7493B600B5E13E /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		459CD47C1D74943700B5E13E /* myshell.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = myshell.c; sourceTree = "<group>"; };
+		459CD47D1D74943700B5E13E /* parse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parse.c; sourceTree = "<group>"; };
+		459CD47E1D74943700B5E13E /* parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parse.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +60,9 @@
 		459CD46F1D7493B600B5E13E /* Project 1 */ = {
 			isa = PBXGroup;
 			children = (
-				459CD4701D7493B600B5E13E /* main.c */,
+				459CD47C1D74943700B5E13E /* myshell.c */,
+				459CD47D1D74943700B5E13E /* parse.c */,
+				459CD47E1D74943700B5E13E /* parse.h */,
 			);
 			path = "Project 1";
 			sourceTree = "<group>";
@@ -118,7 +123,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				459CD4711D7493B600B5E13E /* main.c in Sources */,
+				459CD4801D74943700B5E13E /* parse.c in Sources */,
+				459CD47F1D74943700B5E13E /* myshell.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +245,7 @@
 				459CD4761D7493B600B5E13E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
