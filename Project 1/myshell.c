@@ -14,6 +14,10 @@
 /* test program with more than this many tokens for input */
 #define MAXARGS 32
 
+/* definitions to simulate a boolean type */
+#define true 1
+#define false 0
+
 /* structure to hold input data */
 struct PARAM
 {
@@ -25,6 +29,9 @@ struct PARAM
 
 /* a typedef so we dont need to use "struct PARAM" all the time */
 typedef struct PARAM Param_t;
+
+/* a typedef simulating a boolean type */
+typedef int bool;
 
 /**
  * Print the contents of the structure when the shell is started with the debug option –Debug.
@@ -43,17 +50,21 @@ void printParams(Param_t * param)
 
 /**
  * Allocate memory for the struct PARAM
- * @return a pointer to the newly allocated memory for the struct PARAM
+ * @return PARAM a pointer to the newly allocated memory for the struct PARAM
  */
 Param_t *createPARAM() {
+    // Allocate memory for the struct; exit if malloc() fails
     Param_t *PARAM = (Param_t *) malloc (sizeof (struct PARAM));
-    PARAM->inputRedirect = NULL;
-    PARAM->outputRedirect = NULL;
-    PARAM->argumentCount = 0;
     if (!PARAM) {
         fprintf (stderr, "> Ran out of memory! \n");
         exit (1);
     }
+    
+    // Initialize variables in the struct
+    PARAM->inputRedirect = NULL;
+    PARAM->outputRedirect = NULL;
+    PARAM->argumentCount = 0;
+
     
     return PARAM;
 }
@@ -82,20 +93,15 @@ Param_t *deletePARAM(Param_t *PARAM) {
 int main(int argc, const char * argv[]) {
 
     char input[MAXARGS];
-//	char *input;
     char demin[] = " \n\t";
     char *token;
-    typedef int bool;
-	#define true 1
-	#define false 0
     bool flag = 0;
-   // char ex[20] = "hello, -Debug";
     
     // Prompt the user for input
     fprintf(stdout, "$$$ ");
     fflush(stdout);
     fgets(input, MAXARGS, stdin);
-   // input = ex;
+    
     // Continues to prompt user for input until "exit" command is entered
     while(strcmp(input, "exit\n") != 0)
     {
@@ -104,12 +110,12 @@ int main(int argc, const char * argv[]) {
         int i = 0;
         token = strtok(input, demin);
         addToken(PARAM, token, i);
+        PARAM->argumentCount++;
         
         // Get the rest of the tokens and add them to the struct
         while(token) {
             i++;
             token = strtok(NULL, demin);
-            PARAM->argumentCount++;
             if(token) {
                 addToken(PARAM, token, i);
                 PARAM->argumentCount++;
