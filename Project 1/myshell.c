@@ -43,25 +43,72 @@ void printParams(Param_t * param)
 }
 
 /**
+ * Allocate memory for the struct PARAM
+ * @return a pointer to the newly allocated memory for the struct PARAM
+ */
+Param_t *createPARAM() {
+    Param_t *PARAM = (Param_t *) malloc (sizeof (struct PARAM));
+    if (!PARAM) {
+        fprintf (stderr, "> Ran out of memory! \n");
+        exit (1);
+    }
+    
+    return PARAM;
+}
+
+/**
+ * Add a token to the argumentVector
+ */
+void addToken(Param_t *PARAM, char *tok, int i) {
+    PARAM->argumentVector[i] = tok;
+}
+
+/**
+ * Free memory allocated for the struct PARAM
+ * @param a pointer to memory allocated for the struct PARAM
+ *
+ * @return a NULL pointer
+ */
+Param_t *deletePARAM(Param_t *PARAM) {
+    free(PARAM);
+    return NULL;
+}
+
+/**
  * This function starts the program.
  */
 int main(int argc, const char * argv[]) {
     //
     char input[MAXARGS];
-    char demin[4] = {"\n"};
+    char demin[] = " \n\t";
     char *token;
     
     // Prompt the user for input
     fprintf(stdout, "$$$ ");
     fflush(stdout);
     fgets(input, MAXARGS, stdin);
+    
+    // Continues to prompt user for input until "exit" command is entered
     while(strcmp(input, "exit\n") != 0)
     {
-    	 token = strtok(input, demin);
-    	 printf("%s\n",input);
-    	 fprintf(stdout, "$$$ ");
-    	 fflush(stdout);
-    	 fgets(input, MAXARGS, stdin);
+        // Get the first token and add it to the struct
+        Param_t *PARAM = createPARAM();
+        int i = 0;
+        token = strtok(input, demin);
+        addToken(PARAM, token, i);
+        
+        // Get the rest of the tokens and add them to the struct
+        while(token) {
+            i++;
+            token = strtok(NULL, demin);
+            if(token) addToken(PARAM, token, i);
+        }
+        
+        printf("%s\n",input);
+        fprintf(stdout, "$$$ ");
+        fflush(stdout);
+        deletePARAM(PARAM);
+        fgets(input, MAXARGS, stdin);
     }
     return 0;
 }
