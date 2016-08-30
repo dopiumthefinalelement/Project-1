@@ -32,11 +32,10 @@ typedef struct PARAM Param_t;
  */
 void printParams(Param_t * param)
 {
+
     int i;
-    printf ("InputRedirect: [%s]\n",
-            (param->inputRedirect != NULL) ? param->inputRedirect:"NULL");
-    printf ("OutputRedirect: [%s]\n",
-            (param->outputRedirect != NULL) ? param->outputRedirect:"NULL");
+    printf ("InputRedirect: [%s]\n", (param->inputRedirect != NULL) ? param->inputRedirect:"NULL");
+    printf ("OutputRedirect: [%s]\n", (param->outputRedirect != NULL) ? param->outputRedirect:"NULL");
     printf ("ArgumentCount: [%d]\n", param->argumentCount);
     for (i = 0; i < param->argumentCount; i++)
         printf("ArgumentVector[%2d]: [%s]\n", i, param->argumentVector[i]);
@@ -48,6 +47,9 @@ void printParams(Param_t * param)
  */
 Param_t *createPARAM() {
     Param_t *PARAM = (Param_t *) malloc (sizeof (struct PARAM));
+    PARAM->inputRedirect = NULL;
+    PARAM->outputRedirect = NULL;
+    PARAM->argumentCount = 0;
     if (!PARAM) {
         fprintf (stderr, "> Ran out of memory! \n");
         exit (1);
@@ -78,20 +80,22 @@ Param_t *deletePARAM(Param_t *PARAM) {
  * This function starts the program.
  */
 int main(int argc, const char * argv[]) {
-    //
+
     char input[MAXARGS];
+//	char *input;
     char demin[] = " \n\t";
     char *token;
     typedef int bool;
 	#define true 1
 	#define false 0
     bool flag = 0;
+   // char ex[20] = "hello, -Debug";
     
     // Prompt the user for input
     fprintf(stdout, "$$$ ");
     fflush(stdout);
     fgets(input, MAXARGS, stdin);
-    
+   // input = ex;
     // Continues to prompt user for input until "exit" command is entered
     while(strcmp(input, "exit\n") != 0)
     {
@@ -105,8 +109,10 @@ int main(int argc, const char * argv[]) {
         while(token) {
             i++;
             token = strtok(NULL, demin);
+            PARAM->argumentCount++;
             if(token) {
                 addToken(PARAM, token, i);
+                PARAM->argumentCount++;
                 if(strcmp(token, "-Debug") == 0) flag = 1;
             }
         }
