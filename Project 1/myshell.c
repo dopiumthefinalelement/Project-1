@@ -11,7 +11,7 @@
  */
 
 
-/* don’t test program with more than this many tokens for input */
+/* test program with more than this many tokens for input */
 #define MAXARGS 32
 
 /* structure to hold input data */
@@ -23,7 +23,7 @@ struct PARAM
     char *argumentVector[MAXARGS];  /* array of strings */
 };
 
-/* a typedef so we don’t need to use "struct PARAM" all the time */
+/* a typedef so we dont need to use "struct PARAM" all the time */
 typedef struct PARAM Param_t;
 
 /**
@@ -82,7 +82,10 @@ int main(int argc, const char * argv[]) {
     char input[MAXARGS];
     char demin[] = " \n\t";
     char *token;
-    
+    typedef int bool;
+	#define true 1
+	#define false 0
+    bool flag = 0;
     // Prompt the user for input
     fprintf(stdout, "$$$ ");
     fflush(stdout);
@@ -102,8 +105,9 @@ int main(int argc, const char * argv[]) {
             i++;
             token = strtok(NULL, demin);
             if(token) addToken(PARAM, token, i);
+            if(strcmp(token, "-Debug") == 0) flag = 1;
         }
-        
+        if(flag == true) printParams(PARAM);
         printf("%s\n",input);
         fprintf(stdout, "$$$ ");
         fflush(stdout);
