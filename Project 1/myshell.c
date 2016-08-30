@@ -86,6 +86,7 @@ int main(int argc, const char * argv[]) {
 	#define true 1
 	#define false 0
     bool flag = 0;
+    
     // Prompt the user for input
     fprintf(stdout, "$$$ ");
     fflush(stdout);
@@ -104,11 +105,12 @@ int main(int argc, const char * argv[]) {
         while(token) {
             i++;
             token = strtok(NULL, demin);
-            if(token) addToken(PARAM, token, i);
-            if(strcmp(token, "-Debug") == 0) flag = 1;
+            if(token) {
+                addToken(PARAM, token, i);
+                if(strcmp(token, "-Debug") == 0) flag = 1;
+            }
         }
         if(flag == true) printParams(PARAM);
-        printf("%s\n",input);
         fprintf(stdout, "$$$ ");
         fflush(stdout);
         deletePARAM(PARAM);
