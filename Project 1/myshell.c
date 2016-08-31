@@ -52,10 +52,12 @@ void printParams(Param_t * param)
  * Allocate memory for the struct PARAM
  * @return PARAM a pointer to the newly allocated memory for the struct PARAM
  */
-Param_t *createPARAM() {
+Param_t *createPARAM()
+{
     // Allocate memory for the struct; exit if malloc() fails
     Param_t *PARAM = (Param_t *) malloc (sizeof (struct PARAM));
-    if (!PARAM) {
+    if (!PARAM)
+    {
         fprintf (stderr, "> Ran out of memory! \n");
         exit (1);
     }
@@ -72,27 +74,57 @@ Param_t *createPARAM() {
 /**
  * Add a token to the argumentVector
  */
-void addToken(Param_t *PARAM, char *tok, int i) {
+void addToken(Param_t *PARAM, char *tok, int i)
+{
     PARAM->argumentVector[i] = tok;
 }
 
 /**
  * Free memory allocated for the struct PARAM
- * @param a pointer to memory allocated for the struct PARAM
+ * @param PARAM a pointer to memory allocated for the struct PARAM
  *
  * @return a NULL pointer
  */
-Param_t *deletePARAM(Param_t *PARAM) {
+Param_t *deletePARAM(Param_t *PARAM)
+{
     free(PARAM);
     return NULL;
 }
 
 /**
+ * Search for a specific char in a char array
+ * @param search the char array to be searched for
+ * @param target the char array to be searched
+ *
+ * @return result a flag that is true (1) if found and false (0) if not found
+ */
+bool searchChar(char *search, char **target)
+{
+    bool result = false;
+    
+    char *c = *target;
+    while (*c)
+    {
+        if (strchr(search, *c))
+        {
+            result = true;
+            (*target)++;
+            break;
+        }
+        
+        c++;
+    }
+    
+    return result;
+}
+
+/**
  * This function starts the program.
  */
-int main(int argc, const char * argv[]) {
+int main(int argc, const char * argv[])
+{
 
-    char input[MAXARGS];
+    char input[100];
     char demin[] = " \n\t";
     char *token;
     bool flag = 0;
@@ -100,10 +132,10 @@ int main(int argc, const char * argv[]) {
     // Prompt the user for input
     fprintf(stdout, "$$$ ");
     fflush(stdout);
-    fgets(input, MAXARGS, stdin);
+    fgets(input, 100, stdin);
     
     // Continues to prompt user for input until "exit" command is entered
-    while(strcmp(input, "exit\n") != 0)
+    while (strcmp(input, "exit\n") != 0)
     {
         // Get the first token and add it to the struct
         Param_t *PARAM = createPARAM();
@@ -113,20 +145,30 @@ int main(int argc, const char * argv[]) {
         PARAM->argumentCount++;
         
         // Get the rest of the tokens and add them to the struct
-        while(token) {
+        while (token)
+        {
             i++;
             token = strtok(NULL, demin);
-            if(token) {
-                addToken(PARAM, token, i);
-                PARAM->argumentCount++;
-                if(strcmp(token, "-Debug") == 0) flag = 1;
+            if (token)
+            {
+                // Test where the token will be added in the struct PARAM
+                if      (searchChar("<", &token))        PARAM->inputRedirect = token;
+                else if (searchChar(">", &token))        PARAM->outputRedirect = token;
+                else if (strcmp(token, "-Debug") == 0)   flag = true;
+                else
+                {
+                    flag = false;
+                    addToken(PARAM, token, i);
+                    PARAM->argumentCount++;
+                }
             }
         }
-        if(flag == true) printParams(PARAM);
+        if (flag == true) printParams(PARAM);
+        flag = false;
         fprintf(stdout, "$$$ ");
         fflush(stdout);
         deletePARAM(PARAM);
-        fgets(input, MAXARGS, stdin);
+        fgets(input, 100, stdin);
     }
     return 0;
 }
