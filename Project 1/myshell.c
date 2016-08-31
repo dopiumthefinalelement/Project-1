@@ -14,6 +14,9 @@
 /* test program with more than this many tokens for input */
 #define MAXARGS 32
 
+/* the largest string the shell can accept */
+#define MAXIN 256
+
 /* definitions to simulate a boolean type */
 #define true 1
 #define false 0
@@ -124,7 +127,7 @@ bool searchChar(char *search, char **target)
 int main(int argc, const char * argv[])
 {
 
-    char input[100];
+    char input[MAXIN];
     char demin[] = " \n\t";
     char *token;
     bool flag = 0;
@@ -132,7 +135,7 @@ int main(int argc, const char * argv[])
     // Prompt the user for input
     fprintf(stdout, "$$$ ");
     fflush(stdout);
-    fgets(input, 100, stdin);
+    fgets(input, MAXIN, stdin);
     
     // Continues to prompt user for input until "exit" command is entered
     while (strcmp(input, "exit\n") != 0)
@@ -168,7 +171,7 @@ int main(int argc, const char * argv[])
         fprintf(stdout, "$$$ ");
         fflush(stdout);
         deletePARAM(PARAM);
-        fgets(input, 100, stdin);
+        fgets(input, MAXIN, stdin);
     }
     return 0;
 }
